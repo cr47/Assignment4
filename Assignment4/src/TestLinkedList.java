@@ -61,10 +61,10 @@ public class TestLinkedList {
 
             }
             
-  //        list['i' - 97].addFirst("i");
-  //        list['a' - 97].addFirst("a");
-  //        list['a' -97].addLast("a");               
-  //        list['i' -97].addLast("i");
+  //       list['i' - 97].addFirst("i");
+    //      list['a' - 97].addFirst("a");
+ //        list['a' -97].addLast("a");               
+   //      list['i' -97].addLast("i");
             in.close();
         } catch (IOException e) {
             e.printStackTrace();
