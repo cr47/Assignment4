@@ -166,7 +166,7 @@ public class MyLinkedList<E> extends MyAbstractList<E> {
     
     
       /** Returns true if this linked list contains the element e, otherwise returns false
-     * @return .*/
+     * @return, increments the element.*/
     public boolean contains(E e){
        Node <E> temp = head;
        count = 0;
@@ -228,7 +228,7 @@ public class MyLinkedList<E> extends MyAbstractList<E> {
        
          return to;
      }
-    
+    /**   Sets the count back to zero  */
       public  int count(){         
           return count;
       }
