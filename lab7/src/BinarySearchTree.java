@@ -173,9 +173,9 @@ public class BinarySearchTree<E extends Comparable<E>> extends AbstractTree<E> {
         while (current != null) {
             list.add(current.element); // Add the node to the list
             if (e.compareTo(current.element) < 0) {
-                current = current.left;
-            } else if (e.compareTo(current.element) > 0) {
                 current = current.right;
+            } else if (e.compareTo(current.element) > 0) {
+                current = current.left;
             } else {
                 break;
             }
@@ -237,7 +237,7 @@ public class BinarySearchTree<E extends Comparable<E>> extends AbstractTree<E> {
         public void rightSubTree(E e) {
         TreeNode<E> root = getOne(e);
         ArrayList<E> list = new ArrayList<>();
-        rightSubTree(list, root.left);
+        rightSubTree(list, root.right);
         for (E element : list) {
             System.out.print(element + " ");
         }
