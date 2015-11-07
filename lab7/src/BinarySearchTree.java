@@ -261,33 +261,61 @@ public class BinarySearchTree<E extends Comparable<E>> extends AbstractTree<E> {
         return inorderPredecessor(root,null,e);
     }
 
-    /* Returns the inorder predecessor of the specified element, returns null if tree is empty or element 'e' is not in the tree. */
-    public E inorderPredecessor(TreeNode<E> current, TreeNode<E> parent, E e) {
-        while (current.element.equals(root)) {
-            parent = current;
-        }
-        if (e.compareTo(current.element) < 0) {
-            current = current.left;
-        } else {
-            if (e.compareTo(current.element) > 0) {
+    
+     public E inorderPredecessor(TreeNode<E> current, TreeNode<E> parent, E e) {
+    // Locate the node to be deleted and also locate its parent node
+       // TreeNode<E> parent = null;
+      //  TreeNode<E> current = root;
+        while (current != null) {
+            if (e.compareTo(current.element) < 0) {
+                parent = current;
+                current = current.left;
+            } else if (e.compareTo(current.element) > 0) {
+                parent = current;
                 current = current.right;
+            } else {
+                break; // Element is in the tree pointed by current
             }
         }
+        if (current == null) {
+            return null; // Element is not in the tree
+        }    // Case 1: current has no left children
         if (current.left == null) {
-            return parent.element;
+            // Connect the parent with the right child of the current node
+            if (parent == null) {
+                root = current.right;
+            } else {
+                if (e.compareTo(parent.element) < 0) {
+                    parent.left = current.right;
+                } else {
+                    parent.right = current.right;
+                }
+            }
         } else {
-            current = current.left;
-        }
-        if(current.right == null){
-            return parent.element;
-        }
-        while (current.right != null) {
-            current = current.right;
-        }
-        return current.element;
+            // Case 2 & 3: The current node has a left child
+            // Locate the rightmost node in the left subtree of
+            // the current node and also its parent
+            TreeNode<E> parentOfRightMost = current;
+            TreeNode<E> rightMost = current.left;
 
+            while (rightMost.right != null) {
+                parentOfRightMost = rightMost;
+                rightMost = rightMost.right; // Keep going to the right
+            }
+            // Replace the element in current by the element in rightMost
+            current.element = rightMost.element;
+
+            // Eliminate rightmost node
+            if (parentOfRightMost.right == rightMost) {
+                parentOfRightMost.right = rightMost.left;
+            } else // Special case: parentOfRightMost == current
+            {
+                parentOfRightMost.left = rightMost.left;
+            }
+        }
+        size--;
+        return current.element; // Element inserted
     }
-
     
     /**
      * Delete an element from the binary tree. Return true if the element is
